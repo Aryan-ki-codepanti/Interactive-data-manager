@@ -16,6 +16,7 @@ def menu_db():
 	my_font_heads = tkinter.font.Font(menu_db_win,size = 20,family = 'Comic Sans MS',weight = 'bold')
 	my_font_other = tkinter.font.Font(menu_db_win,size = 16,family = 'Comic Sans MS')
 	my_font_smallest = tkinter.font.Font(menu_db_win,size = 12,family = 'Comic Sans MS')
+	data_font = tkinter.font.Font(menu_db_win,size = 8,family = 'Comic Sans MS')
 
 	my_c = tk.Canvas(menu_db_win,bg = 'black')
 	my_c.place(relx = 0,rely = 0,relwidth = 1,relheight = 1)
@@ -58,6 +59,7 @@ def menu_db():
 				except Exception as e:
 					tkinter.messagebox.showerror("OOPS",e)
 			db.close()
+			menu_db_win.attributes('-topmost',True)
 
 		my_c = tk.Canvas(menu_db_win,bg = 'black')
 		my_c.place(relx = 0,rely = 0,relwidth = 1,relheight = 1)
@@ -134,6 +136,7 @@ def menu_db():
 					tkinter.messagebox.showinfo("CONGO!!","Insertion Successful!!")
 				except Exception as e:
 					tkinter.messagebox.showerror("OOPS!!",e)
+			menu_db_win.attributes("-topmost",True)
 
 		my_c = tk.Canvas(menu_db_win,bg = 'black')
 		my_c.place(relx = 0,rely = 0,relwidth = 1,relheight = 1)
@@ -189,8 +192,11 @@ def menu_db():
 					rows = [str(i) for i in cursor]
 
 					final_op = "\n".join(rows)
-					data_label = tk.Label(frame_lower,font = my_font_smallest,bg = "Turquoise",text = final_op)
-					data_label.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
+
+					data_textbox = tkinter.Text(frame_lower,font = my_font_smallest,wrap = tk.WORD,width = 40,height = 20,bd = 5,padx = 10,pady = 10)
+					data_textbox.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
+					data_textbox.delete(1.0,tk.END)
+					data_textbox.insert(1.0,final_op)
 
 				except Exception as e:
 					tkinter.messagebox.showerror("OOPS!",e)
@@ -203,13 +209,15 @@ def menu_db():
 					rows = [str(i) for i in cursor]
 
 					final_op = "\n".join(rows)
-					data_label = tk.Label(frame_lower,font = my_font_smallest,bg = "Turquoise",text = final_op)
-					data_label.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
+					data_textbox = tkinter.Text(frame_lower,font = my_font_smallest,wrap = tk.WORD,width = 40,height = 20,bd = 5,padx = 10,pady = 10)
+					data_textbox.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
+					data_textbox.insert(1.0,final_op)
 
 				except Exception as e:
 					tkinter.messagebox.showerror("OOPS!",e)
 
 			db.close()
+			menu_db_win.attributes("-topmost",True)
 
 		my_c = tk.Canvas(menu_db_win,bg = 'black')
 		my_c.place(relx = 0,rely = 0,relwidth = 1,relheight = 1)
@@ -235,15 +243,18 @@ def menu_db():
 		field_label.place(relx = 0,rely = 1/2,relwidth = 4/10,relheight = 1/2)
 		field_entry.place(relx = 4/10,rely = 1/2,relwidth = 6/10,relheight = 1/2)
 
-		data_label = tk.Label(frame_lower,font = my_font_smallest,bg = "Turquoise")
+		
 		all_data_button = tk.Button(frame_lower,font = my_font_other,command = lambda: get_data(2),bg = 'Dodger blue',
 			fg = 'white',text = "View whole") #2
 		view_field_button = tk.Button(frame_lower,font = my_font_other,command = lambda : get_data(1),bg = 'Dodger blue',
 			fg = 'white',text = "View field data") #1 
 
-		data_label.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
 		all_data_button.place(relx = 7/12,rely = 16/20,relwidth = 1/3,relheight = 3/20)
 		view_field_button.place(relx = 1/12,rely = 16/20,relwidth = 1/3,relheight = 3/20)
+
+		data_textbox = tkinter.Text(frame_lower,font = my_font_smallest,wrap = tk.WORD,width = 40,height = 20,bd = 5,padx = 10,pady = 10)
+		data_textbox.place(relx = 1/12,rely = 0.2 * 3/20,relheight = 4.8*3/20,relwidth = 5/6)
+		
 						
 	def creation_db():
 
@@ -286,6 +297,7 @@ def menu_db():
 
 				except Exception as e:
 					tkinter.messagebox.showerror("OOPS!",e)
+			menu_db_win.attributes("-topmost",True)
 
 		db_entry = tk.Entry(menu_db_win,font = my_font_other)
 		db_entry.place(relx = 2.5/10,rely = 0,relwidth = 7.5/10,relheight = 10/79)
